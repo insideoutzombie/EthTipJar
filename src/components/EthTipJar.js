@@ -14,14 +14,6 @@ if (typeof web3 !== 'undefined') {
   web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 }
 
-// let RBAbi = require('../../../abis/RoomBaseAbi.js');
-// let RBAddress = '0x8273e4b8ed6c78e252a9fca5563adfcc75c91b2a';
-// let RB = web3.eth.contract(RBAbi).at(RBAddress);
-
-// let ROAbi = require('../../../abis/RoomOwnershipAbi.js');
-// let ROAddress = '0x4e71920b7330515faf5ea0c690f1ad06a85fb60c';
-// let RO = web3.eth.contract(ROAbi).at(ROAddress);
-
 let ETJAbi = require('../../abis/EthTipJarAbi.js');
 let ETJAddress = require('../../Contract-Addresses/Local-Address.js');
 let ETJ = web3.eth.contract(ETJAbi).at(ETJAddress);
@@ -37,12 +29,14 @@ class EthTipJar extends Component{
   handleSubmit = (event) => {
     event.preventDefault();
     console.log("tip fired!");
-    ETJ.tip({from: web3.eth.accounts[0], gas: 3000000, value: 1000000}, (err,res)=>{
+    ETJ.tip({from: web3.eth.accounts[0], gas: 300000, value: 10**18}, (err,res)=>{
       if(err){
         console.log("there is an error with the callback");
+        console.log(err);
+      } else {
+        console.log("success!");
+        console.log(res);
       }
-      console.log("success!");
-      console.log(res);
     });
     console.log("ETJ.tip fired!");
   }
