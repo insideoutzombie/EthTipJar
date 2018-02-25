@@ -25,3 +25,4 @@ contract EthTipJar {
         owner.transfer(this.balance);
         return true;
     }
+}
