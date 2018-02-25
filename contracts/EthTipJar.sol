@@ -10,7 +10,7 @@ contract EthTipJar {
     }
 
     function () payable public {
-        if (msg.value < 500 wei) throw;
+        /* if (msg.value < 500 wei) throw; */
         uint amount = msg.value;
         uint royalty = amount / 200;
         web3devs.transfer(royalty);
@@ -18,7 +18,7 @@ contract EthTipJar {
     }
 
     function tip () payable public returns (bool){
-        if (msg.value < 500 wei) throw;
+        /* if (msg.value < 500 wei) throw; */
         uint amount = msg.value;
         uint royalty = amount / 200;
         web3devs.transfer(royalty);

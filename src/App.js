@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import EthTipJarContract from '../build/contracts/EthTipJar.json'
 import getWeb3 from './utils/getWeb3'
+import EthTipJar from './components/EthTipJar.js'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -53,18 +54,22 @@ class App extends Component {
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
       console.log(this.state.web3.eth.getAccounts);
-      ethTipJar.deployed().then((instance) => {
-        ETJ = instance
-        console.log(instance);
-        console.log(ETJ.tip);
-        return ETJ.tip.call({from: accounts[0], gas: 3000000, value: 1000}, function(error, result){
-          console.log("ETJ.tip() called");
-          if(!error)
-            console.log(JSON.stringify(result));
-          else
-            console.error(error);
+      ethTipJar.deployed().then(
+        //  function(res){ETJ = ethTipJar.at(res.address)});
+        (instance) => {
+          ETJ = instance;
+          console.log(instance);
+          console.log(ETJ.address);
+          console.log(ETJ.tip);
+          return ETJ.tip.call({from: accounts[0], gas: 3000000, value: 1000}, function(error, result){
+            console.log("ETJ.tip() called");
+            if(!error)
+              console.log(JSON.stringify(result));
+            else
+              console.error(error);
           })
-      })
+        }
+      )
     })
   }
 
@@ -85,6 +90,7 @@ class App extends Component {
               <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
               <p>The stored value is: {this.state.storageValue}</p>
             </div>
+            <EthTipJar />
           </div>
         </main>
       </div>
